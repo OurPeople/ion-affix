@@ -13,7 +13,7 @@ export class ContentAdapter implements IonAffixContainer {
     }
 
     onScroll(): Observable<any> {
-        return merge(this.content.ionScrollStart, this.content.ionScroll, this.content.ionScrollEnd);
+        return this.content.ionScroll;
     }
 
     getClientTop(): number {
