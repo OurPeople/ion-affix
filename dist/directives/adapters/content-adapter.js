@@ -18,6 +18,9 @@ ContentAdapter = (function () {
     ContentAdapter.prototype.getClientTop = function () {
         return this.content.getScrollElement().getBoundingClientRect().top;
     };
+    ContentAdapter.prototype.getOffsetTop = function () {
+        return this.getScrollTop() - this.content.getNativeElement().getBoundingClientRect().top;
+    };
     ContentAdapter.prototype.getScrollTop = function () {
         return this.content.getScrollElement().scrollTop;
     };

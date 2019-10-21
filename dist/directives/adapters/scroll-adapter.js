@@ -23,6 +23,9 @@ ScrollAdapter = (function () {
     ScrollAdapter.prototype.getClientTop = function () {
         return 0;
     };
+    ScrollAdapter.prototype.getOffsetTop = function () {
+        return this.getScrollTop();
+    };
     ScrollAdapter.prototype.getScrollTop = function () {
         return this.scroll._scrollContent.nativeElement.scrollTop;
     };

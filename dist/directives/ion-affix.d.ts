@@ -27,7 +27,7 @@ export declare class IonAffix implements AfterViewInit, OnDestroy {
     scrollContainer: IonAffixContainer;
     constructor(element: ElementRef, renderer: Renderer2);
     ngAfterViewInit(): void;
-    private updateSticky(scrollTop, containerTop, containerBottom, scrollClientTop, headerHeight, left, right, downwards);
+    private updateSticky(scrollTop, containerTop, containerBottom, offsetTop, headerHeight, left, right, downwards);
     private reset();
     private applyStyles(left, right);
     private clearStyles();
