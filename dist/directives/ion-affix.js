@@ -66,14 +66,15 @@ var IonAffix = (function () {
                 }, 0);
             }
             // transform vertical position to push fixed header up/down
+            var offsetTop = containerTop - scrollClientTop;
             if (scrollTop <= containerBottom && scrollTop >= (containerBottom - headerHeight)) {
-                var delta = scrollClientTop - (scrollTop - (containerBottom - headerHeight));
+                var delta = offsetTop - (scrollTop - (containerBottom - headerHeight));
                 this.renderer.setStyle(this.headerElement, 'transform', "translate3d(0px, " + delta + "px, 0px)");
                 this.renderer.setStyle(this.headerElement, '-webkit-transform', "translate3d(0px, " + delta + "px, 0px)");
             }
             else {
-                this.renderer.setStyle(this.headerElement, 'transform', "translate3d(0px, " + scrollClientTop + "px, 0px)");
-                this.renderer.setStyle(this.headerElement, '-webkit-transform', "translate3d(0px, " + scrollClientTop + "px, 0px)");
+                this.renderer.setStyle(this.headerElement, 'transform', "translate3d(0px, " + offsetTop + "px, 0px)");
+                this.renderer.setStyle(this.headerElement, '-webkit-transform', "translate3d(0px, " + offsetTop + "px, 0px)");
             }
         }
         else {
