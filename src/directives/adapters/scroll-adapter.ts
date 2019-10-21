@@ -29,7 +29,7 @@ export class ScrollAdapter implements IonAffixContainer {
     }
 
     getOffsetTop(): number {
-        return this.getScrollTop();
+        return this.getClientTop();
     }
 
     getScrollTop(): number {
