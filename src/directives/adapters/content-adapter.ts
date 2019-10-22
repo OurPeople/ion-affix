@@ -20,6 +20,10 @@ export class ContentAdapter implements IonAffixContainer {
         return this.content.getScrollElement().getBoundingClientRect().top;
     }
 
+    getOffsetTop(): number {
+        return this.getClientTop() - this.content.getNativeElement().getBoundingClientRect().top;
+    }
+
     getScrollTop(): number {
         return this.content.getScrollElement().scrollTop;
     }

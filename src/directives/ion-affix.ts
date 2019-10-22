@@ -44,24 +44,24 @@ export class IonAffix implements AfterViewInit, OnDestroy {
         const headerHeight = this.headerElement.getBoundingClientRect().height;
         const right = window.innerWidth - this.headerElement.getBoundingClientRect().width - this.headerElement.getBoundingClientRect().left;
         const left = this.headerElement.getBoundingClientRect().left;
-        let scrollClientTop = this.scrollContainer.getClientTop();
+        let offsetTop = this.scrollContainer.getOffsetTop();
         let containerTop = this.containerElement.offsetTop;
         let containerBottom = containerTop + this.containerElement.getBoundingClientRect().height;
         // initially checking if affix needs to be shown
-        this.updateSticky(this.scrollContainer.getScrollTop(), containerTop, containerBottom, scrollClientTop, headerHeight, left, right, true);
+        this.updateSticky(this.scrollContainer.getScrollTop(), containerTop, containerBottom, offsetTop, headerHeight, left, right, true);
 
         const onScroll = () => {
             const scrollTop = this.scrollContainer.getScrollTop();
-            scrollClientTop = this.scrollContainer.getClientTop();
+            offsetTop = this.scrollContainer.getOffsetTop();
             containerTop = this.containerElement.offsetTop;
             containerBottom = containerTop + this.containerElement.getBoundingClientRect().height;
-            this.updateSticky(scrollTop, containerTop, containerBottom, scrollClientTop, headerHeight, left, right, this.scrollContainer.isScrollingDown());
+            this.updateSticky(scrollTop, containerTop, containerBottom, offsetTop, headerHeight, left, right, this.scrollContainer.isScrollingDown());
         };
         // subscribing to scroll events
         this.scrollSubscription = this.scrollContainer.onScroll().subscribe(onScroll);
     }
 
-    private updateSticky(scrollTop, containerTop, containerBottom, scrollClientTop, headerHeight, left, right, downwards) {
+    private updateSticky(scrollTop, containerTop, containerBottom, offsetTop, headerHeight, left, right, downwards) {
         // check if scrollTop is within list boundaries
         if (scrollTop > 0 && scrollTop >= containerTop && scrollTop <= containerBottom) {
             if (!this.clone) {
@@ -82,12 +82,12 @@ export class IonAffix implements AfterViewInit, OnDestroy {
             }
             // transform vertical position to push fixed header up/down
             if (scrollTop <= containerBottom && scrollTop >= (containerBottom - headerHeight)) {
-                const delta = scrollClientTop - (scrollTop - (containerBottom - headerHeight));
+                const delta = offsetTop - (scrollTop - (containerBottom - headerHeight));
                 this.renderer.setStyle(this.headerElement, 'transform', `translate3d(0px, ${delta}px, 0px)`);
                 this.renderer.setStyle(this.headerElement, '-webkit-transform', `translate3d(0px, ${delta}px, 0px)`);
             } else {
-                this.renderer.setStyle(this.headerElement, 'transform', `translate3d(0px, ${scrollClientTop}px, 0px)`);
-                this.renderer.setStyle(this.headerElement, '-webkit-transform', `translate3d(0px, ${scrollClientTop}px, 0px)`);
+                this.renderer.setStyle(this.headerElement, 'transform', `translate3d(0px, ${offsetTop}px, 0px)`);
+                this.renderer.setStyle(this.headerElement, '-webkit-transform', `translate3d(0px, ${offsetTop}px, 0px)`);
             }
         } else {
             this.reset();

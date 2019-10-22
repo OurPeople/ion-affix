@@ -12,6 +12,7 @@ export declare class ScrollAdapter implements IonAffixContainer {
     constructor(scroll: Scroll);
     onScroll(): Observable<any>;
     getClientTop(): number;
+    getOffsetTop(): number;
     getScrollTop(): number;
     appendFixedHeader(headerElement: any): void;
     isScrollingDown(): boolean;

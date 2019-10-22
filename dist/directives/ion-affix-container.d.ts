@@ -9,6 +9,7 @@ export interface IonAffixContainer {
     onScroll(): Observable<any>;
     getClientTop(): number;
     getScrollTop(): number;
+    getOffsetTop(): number;
     appendFixedHeader(headerElement: any): void;
     isScrollingDown(): boolean;
 }

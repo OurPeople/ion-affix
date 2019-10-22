@@ -14,6 +14,8 @@ export interface IonAffixContainer {
 
     getScrollTop(): number;
 
+    getOffsetTop(): number;
+
     appendFixedHeader(headerElement: any): void;
 
     isScrollingDown(): boolean;

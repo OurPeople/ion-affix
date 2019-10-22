@@ -29,22 +29,22 @@ var IonAffix = (function () {
         var headerHeight = this.headerElement.getBoundingClientRect().height;
         var right = window.innerWidth - this.headerElement.getBoundingClientRect().width - this.headerElement.getBoundingClientRect().left;
         var left = this.headerElement.getBoundingClientRect().left;
-        var scrollClientTop = this.scrollContainer.getClientTop();
+        var offsetTop = this.scrollContainer.getOffsetTop();
         var containerTop = this.containerElement.offsetTop;
         var containerBottom = containerTop + this.containerElement.getBoundingClientRect().height;
         // initially checking if affix needs to be shown
-        this.updateSticky(this.scrollContainer.getScrollTop(), containerTop, containerBottom, scrollClientTop, headerHeight, left, right, true);
+        this.updateSticky(this.scrollContainer.getScrollTop(), containerTop, containerBottom, offsetTop, headerHeight, left, right, true);
         var onScroll = function () {
             var scrollTop = _this.scrollContainer.getScrollTop();
-            scrollClientTop = _this.scrollContainer.getClientTop();
+            offsetTop = _this.scrollContainer.getOffsetTop();
             containerTop = _this.containerElement.offsetTop;
             containerBottom = containerTop + _this.containerElement.getBoundingClientRect().height;
-            _this.updateSticky(scrollTop, containerTop, containerBottom, scrollClientTop, headerHeight, left, right, _this.scrollContainer.isScrollingDown());
+            _this.updateSticky(scrollTop, containerTop, containerBottom, offsetTop, headerHeight, left, right, _this.scrollContainer.isScrollingDown());
         };
         // subscribing to scroll events
         this.scrollSubscription = this.scrollContainer.onScroll().subscribe(onScroll);
     };
-    IonAffix.prototype.updateSticky = function (scrollTop, containerTop, containerBottom, scrollClientTop, headerHeight, left, right, downwards) {
+    IonAffix.prototype.updateSticky = function (scrollTop, containerTop, containerBottom, offsetTop, headerHeight, left, right, downwards) {
         var _this = this;
         // check if scrollTop is within list boundaries
         if (scrollTop > 0 && scrollTop >= containerTop && scrollTop <= containerBottom) {
@@ -67,13 +67,13 @@ var IonAffix = (function () {
             }
             // transform vertical position to push fixed header up/down
             if (scrollTop <= containerBottom && scrollTop >= (containerBottom - headerHeight)) {
-                var delta = scrollClientTop - (scrollTop - (containerBottom - headerHeight));
+                var delta = offsetTop - (scrollTop - (containerBottom - headerHeight));
                 this.renderer.setStyle(this.headerElement, 'transform', "translate3d(0px, " + delta + "px, 0px)");
                 this.renderer.setStyle(this.headerElement, '-webkit-transform', "translate3d(0px, " + delta + "px, 0px)");
             }
             else {
-                this.renderer.setStyle(this.headerElement, 'transform', "translate3d(0px, " + scrollClientTop + "px, 0px)");
-                this.renderer.setStyle(this.headerElement, '-webkit-transform', "translate3d(0px, " + scrollClientTop + "px, 0px)");
+                this.renderer.setStyle(this.headerElement, 'transform', "translate3d(0px, " + offsetTop + "px, 0px)");
+                this.renderer.setStyle(this.headerElement, '-webkit-transform', "translate3d(0px, " + offsetTop + "px, 0px)");
             }
         }
         else {
